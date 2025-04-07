@@ -1,0 +1,11 @@
+static bool appDataInd(NWK_DataInd_t *ind)
+{
+  if (ind->size == 2) { // Skontrolujeme, či sme prijali 2 bajty
+    uint16_t received_adc_value = (uint16_t)ind->data[0] | ((uint16_t)ind->data[1] << 8);
+    printf("Prijata hodnota ADC: %u\n\r", received_adc_value); // Vypíšeme prijatú hodnotu
+    // Alebo odosleme po UART bajtoch.
+    HAL_UartWriteByte(ind->data[0]);
+    HAL_UartWriteByte(ind->data[1]);
+  }
+  return true;
+}
