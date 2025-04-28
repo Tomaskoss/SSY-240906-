@@ -62,6 +62,8 @@ Inicializácia siete | appInit() | Nastavenie Zigbee-like bezdrôtovej siete.
 Čítanie dát | adc_read() | Získanie hodnoty zo senzora.
 Odoslanie dát | appSendData(), NWK_DataReq() | Prenos nameraných údajov cez sieť.
 Prijatie dát | appDataInd() | Spracovanie prijatých správ zo siete.
+![image](https://github.com/user-attachments/assets/dd068fa2-c434-4c3f-98f4-3f16761f0212)
+![image](https://github.com/user-attachments/assets/a616632e-ac55-473d-b375-941f1e34faa1)
 
 ## Poznámky
 
@@ -71,4 +73,3 @@ Prijatie dát | appDataInd() | Spracovanie prijatých správ zo siete.
 
 ---
 
-> Pre väčšie projekty je odporúčané rozšírenie správy siete, viackanálových ADC čítaní a správy energie MCU.
