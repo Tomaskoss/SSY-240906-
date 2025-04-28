@@ -14,7 +14,7 @@ Program pre snímanie obsadenia miesta pomocou FSR senzora a bezdrôtovú komuni
 - [Hardvérové požiadavky](#hardvérové-požiadavky)
 - [Inštalácia a spustenie](#inštalácia-a-spustenie)
 - [Architektúra programu](#architektúra-programu)
-- [Príklad výstupu](#príklad-výstupu)
+- [Príklad výstupu](#výstup-z-konzole)
 
 ---
 
@@ -63,7 +63,7 @@ Pre základ LWM siete bol použitý základ od Pána Ph.D. Krajsu.
 - Odoslanie dát | appSendData(), NWK_DataReq() | Prenos nameraných údajov cez sieť.
 - Prijatie dát | appDataInd() | Spracovanie prijatých správ zo siete.
 
-## Vystup z projektu
+
 
 ## Výstup z konzole:
 ![image](https://github.com/user-attachments/assets/4458dd52-bb0d-42c7-a41a-f2ed53e76222)
