@@ -65,11 +65,10 @@ Prijatie dát | appDataInd() | Spracovanie prijatých správ zo siete.
 
 ## Vystup z projektu
 
-##Výstup z konzole:
-![image](https://github.com/user-attachments/assets/dd068fa2-c434-4c3f-98f4-3f16761f0212)
-##Graf rozdielu hodnôt:
+## Výstup z konzole:
 ![image](https://github.com/user-attachments/assets/a616632e-ac55-473d-b375-941f1e34faa1)
-
+## Graf rozdielu hodnôt:
+![image](https://github.com/user-attachments/assets/dd068fa2-c434-4c3f-98f4-3f16761f0212)
 ## Poznámky
 
 - Projekt implementuje jednoduchú bezdrôtovú sieťovú komunikáciu s podporou zabezpečenia.
