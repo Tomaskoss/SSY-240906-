@@ -4,7 +4,7 @@ import matplotlib.animation as animation
 import numpy as np
 
 # Nastavenie sériového portu
-ser = serial.Serial('COM4', 38400)  # Nahraďte 'COM3' správnym portom
+ser = serial.Serial('COM4', 38400)  # Nahraďte 'COMX' správnym portom
 
 # Vytvorenie grafov
 fig, (ax1, ax2) = plt.subplots(2, 1, figsize=(8, 6))
@@ -17,7 +17,7 @@ def animate(i, xs, ys, diffs):
     try:
         # Čítanie dát zo sériového portu
         line = ser.readline().decode('utf-8').strip()
-        if line.startswith("ADC Value:"):
+        if line.startswith("Odoslana ADC Value:"):
             value = int(line.split(":")[1])
             xs.append(len(xs))
             ys.append(value)
