@@ -80,11 +80,11 @@ void adc_init() {
 	ADCSRA = (1 << ADEN) | (1 << ADPS2) | (1 << ADPS1) | (1 << ADPS0);
 }
 
-// ?ítanie hodnoty z ADC
+// cítanie hodnoty z ADC
 uint16_t adc_read(uint8_t channel) {
 	ADMUX = (ADMUX & 0xF0) | (channel & 0x0F);  // Výber kanálu
 	ADCSRA |= (1 << ADSC);  // Spustenie konverzie
-	while (ADCSRA & (1 << ADSC));  // ?akaj na skon?enie konverzie
+	while (ADCSRA & (1 << ADSC));  // cakaj na skoncenie konverzie
 	return ADC;
 } 
 
@@ -176,9 +176,11 @@ static NWK_DataReq_t response;
     if (appDataReqBusy)  // Pokud je odesílání obsazené, zprávu ignorujeme
         return false;
 
-    // Výpis p?ijatých dat do UART
-    for (uint8_t i = 0; i < ind->size; i++)
-        HAL_UartWriteByte(ind->data[i]);
+    	printf("Prijata ADC Value:");
+	for(uint8_t i=0; i< ind->size; i++){
+		printf("[%c]",ind->data[i]);
+	}
+	printf("\n\r");
 
 return true;
 }
@@ -222,18 +224,27 @@ static void APP_TaskHandler(void)
 
 	 case APP_STATE_SEND_CHAR:
 	 {
-		 adc_value = adc_read(0); // na?ítaj ADC hodnotu z kanála 0 (PF0)
+		adc_value = adc_read(0); // na?ítaj ADC hodnotu z kanála 0 (PF0)
 
 		 // preved hodnotu na string
-		 snprintf(buffer, sizeof(buffer), "%u", adc_value); // napríklad "1234"
-
+		snprintf(buffer, sizeof(buffer), "%u", adc_value); // napríklad "1234"
+		   // Skontroluj, ?i je miesto obsadené alebo nie
+	
 		 // skopíruj string do appUartBuffer
 		 appUartBufferPtr = strlen(buffer);
 		 memcpy(appUartBuffer, buffer, appUartBufferPtr);
 
 		 appSendData(); // odošli dáta cez sie?
 
-		 printf("Odoslana ADC hodnota: %u\n\r", adc_value); // vypíš do UART
+		 printf("Odoslana ADC Value: %u\n\r", adc_value); // vypíš do UART
+			
+		// Skontroluj, ?i je miesto obsadené alebo nie
+		if (adc_value > 100) {
+			printf("Miesto je obsadene!\n\r");
+		} else {
+			printf("Miesto nie je obsadene.\n\r");
+		}
+
 		 appState = APP_STATE_IDLE;
 	 } break;
 
@@ -282,28 +293,7 @@ while (1)
 		 appState = APP_STATE_SEND_CHAR;
 		 _delay_ms(500);
 	 }
-	 
-	// sendFSRValue();
-	// _delay_ms(1000);
-/*
-     // ?ítanie hodnoty z FSR senzora na kanáli 0 (PF0)
-     uint16_t adc_value = adc_read(0);  // Kanál 0 je priradený k PF0 (ADC0)
-
-     // Posielanie ADC hodnoty cez UART
-     char buffer[32];
-     snprintf(buffer, sizeof(buffer), "ADC Value: %u\n\r", adc_value);  // Formátuj hodnotu
-     UART_SendString(buffer);  // Pošli cez UART
-
-     // Skontroluj, ?i je hodnota vä?šia ako 100 (miesto je obsadené)
-     if (adc_value > 100) {
-	     UART_SendString("Miesto je obsadene!\n\r");
-	     } else {
-	     UART_SendString("Miesto nie je obsadene.\n\r");
      }
-
-     _delay_ms(500);  // Po?kajte 500ms pred ?alším ?ítaním
-	 */
-     }
-	 
+	
 	}
 
