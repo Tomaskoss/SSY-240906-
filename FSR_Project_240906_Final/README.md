@@ -55,13 +55,13 @@ Pre základ LWM siete bol použitý základ od Pána Ph.D. Krajsu.
 
 **Hlavné komponenty:**
 
-Operácia | Funkcia | Účel
-Inicializácia UART | board_init(), HAL_UartInit() | Nastavenie komunikácie so sériovým portom.
-Inicializácia ADC | adc_init() | Meranie analógovej hodnoty z FSR.
-Inicializácia siete | appInit() | Nastavenie Zigbee-like bezdrôtovej siete.
-Čítanie dát | adc_read() | Získanie hodnoty zo senzora.
-Odoslanie dát | appSendData(), NWK_DataReq() | Prenos nameraných údajov cez sieť.
-Prijatie dát | appDataInd() | Spracovanie prijatých správ zo siete.
+- Operácia | Funkcia | Účel
+- Inicializácia UART | board_init(), HAL_UartInit() | Nastavenie komunikácie so sériovým portom.
+- Inicializácia ADC | adc_init() | Meranie analógovej hodnoty z FSR.
+- Inicializácia siete | appInit() | Nastavenie Zigbee-like bezdrôtovej siete.
+- Čítanie dát | adc_read() | Získanie hodnoty zo senzora.
+- Odoslanie dát | appSendData(), NWK_DataReq() | Prenos nameraných údajov cez sieť.
+- Prijatie dát | appDataInd() | Spracovanie prijatých správ zo siete.
 
 ## Vystup z projektu
 
