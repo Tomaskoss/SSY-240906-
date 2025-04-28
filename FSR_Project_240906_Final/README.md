@@ -1,6 +1,6 @@
-# Project Bilka
+# Project FSR_Čidlo
 
-**Autor**: Student  
+**Autor**: Tomáš Bilka  
 **Vytvorené**: 31.3.2025  
 
 Program pre snímanie obsadenia miesta pomocou FSR senzora a bezdrôtovú komunikáciu.
@@ -14,7 +14,6 @@ Program pre snímanie obsadenia miesta pomocou FSR senzora a bezdrôtovú komuni
 - [Hardvérové požiadavky](#hardvérové-požiadavky)
 - [Inštalácia a spustenie](#inštalácia-a-spustenie)
 - [Architektúra programu](#architektúra-programu)
-- [Stavový diagram](#stavový-diagram)
 - [Príklad výstupu](#príklad-výstupu)
 
 ---
@@ -23,12 +22,12 @@ Program pre snímanie obsadenia miesta pomocou FSR senzora a bezdrôtovú komuni
 
 Tento projekt realizuje:
 - Snímanie tlaku pomocou FSR senzora cez ADC.
-- Odosielanie nameraných hodnôt cez bezdrôtovú sieť (pravdepodobne Zigbee).
+- Odosielanie nameraných hodnôt cez bezdrôtovú sieť.
 - Spracovanie a zobrazovanie prijatých hodnôt cez UART terminál.
 - Indikáciu obsadenia miesta na základe prahovej hodnoty.
 
 ## Použité knižnice
-
+Pre základ LWM siete bol použitý základ od Pána Ph.D. Krajsu. 
 - `avr/io.h`, `util/delay.h`, `avr/interrupt.h` - Nízkoúrovňové ovládanie MCU
 - `stdlib.h`, `stdio.h`, `string.h`, `math.h` - Štandardné knižnice C
 - Projektové knižnice:
@@ -40,13 +39,12 @@ Tento projekt realizuje:
 
 - **Mikrokontrolér**: AVR (napr. ATmega)
 - **Senzor**: FSR (Force Sensitive Resistor)
-- **Komunikačný modul**: Zigbee či podobný
 - **Pripojenie k PC**: UART/USB
 - **Napájanie**: 3.3V alebo 5V podľa MCU
 
 ## Inštalácia a spustenie
 
-1. Nahrajte projekt do AVR mikrokontroléra (napr. cez Atmel Studio alebo avrdude).
+1. Nahrajte projekt do AVR mikrokontroléra (napr. cez Atmel Studio).
 2. Pripojte FSR senzor na ADC kanál 0.
 3. Spustite UART terminál s nastaveniami:
    - Baudrate: 38400
@@ -57,37 +55,13 @@ Tento projekt realizuje:
 
 **Hlavné komponenty:**
 
-- **Inicializácie**
-  - `SYS_Init()`, `board_init()`, `adc_init()`, `HAL_UartInit()`
-- **Aplikácia**
-  - Stavový automat s tromi stavmi: `INITIAL`, `SEND_CHAR`, `IDLE`
-- **Snímanie a odosielanie**
-  - Čítanie hodnoty cez `adc_read()`.
-  - Odosielanie dát pomocou `NWK_DataReq()`.
-- **Prijímanie**
-  - `HAL_UartBytesReceived()`, `appDataInd()`
-- **Spracovanie časovača**
-  - `SYS_Timer_t` pre timeout flush bufferu
-
-## Stavový diagram
-
-```mermaid
-graph TD
-A[INITIAL] --> B[IDLE]
-B -- po uplynutí času --> C[SEND_CHAR]
-C -- spracovanie ADC a odoslanie --> B
-```
-
-## Príklad výstupu
-
-```
--------------------------------------
-Vitaj v programe pre snimanie obsadenia pomocou FSR senzora!
-Odoslana ADC Value: 254
-Miesto je obsadene!
-Odoslana ADC Value: 23
-Miesto nie je obsadene.
-```
+Operácia | Funkcia | Účel
+Inicializácia UART | board_init(), HAL_UartInit() | Nastavenie komunikácie so sériovým portom.
+Inicializácia ADC | adc_init() | Meranie analógovej hodnoty z FSR.
+Inicializácia siete | appInit() | Nastavenie Zigbee-like bezdrôtovej siete.
+Čítanie dát | adc_read() | Získanie hodnoty zo senzora.
+Odoslanie dát | appSendData(), NWK_DataReq() | Prenos nameraných údajov cez sieť.
+Prijatie dát | appDataInd() | Spracovanie prijatých správ zo siete.
 
 ## Poznámky
 
