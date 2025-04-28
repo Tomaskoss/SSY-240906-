@@ -66,7 +66,8 @@ Prijatie dát | appDataInd() | Spracovanie prijatých správ zo siete.
 ## Vystup z projektu
 
 ## Výstup z konzole:
-![image](https://github.com/user-attachments/assets/a616632e-ac55-473d-b375-941f1e34faa1)
+![image](https://github.com/user-attachments/assets/4458dd52-bb0d-42c7-a41a-f2ed53e76222)
+
 ## Graf rozdielu hodnôt:
 ![image](https://github.com/user-attachments/assets/dd068fa2-c434-4c3f-98f4-3f16761f0212)
 ## Poznámky
