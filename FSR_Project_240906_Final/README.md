@@ -43,7 +43,8 @@ Pre základ LWM siete bol použitý základ od Pána Ph.D. Krajsu.
 - **Napájanie**: 3.3V alebo 5V podľa MCU
 - **FSR**: vlastnosti:
 - stlačenie: 400 Ohm
-- Uvolnenie: 100 KOhm 
+- Uvolnenie: 100 KOhm
+- Referenčné napetie: 1,5 V
 ## Inštalácia a spustenie
 
 1. Nahrajte projekt do AVR mikrokontroléra (napr. cez Atmel Studio).
@@ -56,7 +57,6 @@ Pre základ LWM siete bol použitý základ od Pána Ph.D. Krajsu.
 ## Architektúra programu
 
 **Hlavné komponenty:**
-
 - Operácia | Funkcia | Účel
 - Inicializácia UART | board_init(), HAL_UartInit() | Nastavenie komunikácie so sériovým portom.
 - Inicializácia ADC | adc_init() | Meranie analógovej hodnoty z FSR.
