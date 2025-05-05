@@ -67,22 +67,22 @@ void board_init(){
 	
 	UCSR1B |= (1 << RXCIE1);// UART receive interrupt enable
 	//sbi(UCSR1B,RXCIE1);
-	stdout = &uart_str; //standartnÌ v˝stup/std output
+	stdout = &uart_str; //standartn√≠ v√Ωstup/std output
 	
 }
 
-// Inicializ·cia ADC
+// Inicializ√°cia ADC
 void adc_init() {
-	// Nastavenie referen?nÈho nap‰tia na 1.5V (intern˝ referen?n˝ zdroj)
+	// Nastavenie referen?n√©ho nap√§tia na 1.5V (intern√Ω referen?n√Ω zdroj)
 	ADMUX = (1 << REFS1);  // REFS1 = 1 (VREF = 1.5V), REFS0 = 0 (VREF = 1.5V)
 	
 	// Povolenie ADC a nastavenie preddelova?a na 128
 	ADCSRA = (1 << ADEN) | (1 << ADPS2) | (1 << ADPS1) | (1 << ADPS0);
 }
 
-// cÌtanie hodnoty z ADC
+// c√≠tanie hodnoty z ADC
 uint16_t adc_read(uint8_t channel) {
-	ADMUX = (ADMUX & 0xF0) | (channel & 0x0F);  // V˝ber kan·lu
+	ADMUX = (ADMUX & 0xF0) | (channel & 0x0F);  // V√Ωber kan√°lu
 	ADCSRA |= (1 << ADSC);  // Spustenie konverzie
 	while (ADCSRA & (1 << ADSC));  // cakaj na skoncenie konverzie
 	return ADC;
@@ -139,25 +139,6 @@ void HAL_UartBytesReceived(uint16_t bytes)
 
 }
 
-
-void sendFSRValue() {
-    if (appDataReqBusy || 0 == appUartBufferPtr)
-        return;	
-
-    appDataReq.dstAddr = 1-APP_ADDR;  // adresa prijÌmate?a (uprav pod?a siete)
-    appDataReq.dstEndpoint = APP_ENDPOINT;
-    appDataReq.srcEndpoint = APP_ENDPOINT;
-    appDataReq.options = NWK_OPT_ENABLE_SECURITY;
-    appDataReq.data = appDataReqBuffer;
-    appDataReq.confirm = appDataConf;
-
-    NWK_DataReq(&appDataReq);
-	appUartBufferPtr=0;
-    appDataReqBusy = true;
-
-
-}
-
 /*************************************************************************//**
 *****************************************************************************/
 static void appTimerHandler(SYS_Timer_t *timer)
@@ -173,7 +154,7 @@ static bool appDataInd(NWK_DataInd_t *ind)
 static NWK_DataReq_t response;
  
 
-    if (appDataReqBusy)  // Pokud je odesÌl·nÌ obsazenÈ, zpr·vu ignorujeme
+    if (appDataReqBusy)  // Pokud je odes√≠l√°n√≠ obsazen√©, zpr√°vu ignorujeme
         return false;
 
     	printf("Prijata ADC Value:");
@@ -211,7 +192,7 @@ appTimer.handler = appTimerHandler;
 *****************************************************************************/
 static void APP_TaskHandler(void)
 {
- static char buffer[16]; // buffer na uloûenie textu s ADC hodnotou
+ static char buffer[16]; // buffer na ulo≈æenie textu s ADC hodnotou
  static uint16_t adc_value; // ADC hodnota
 
  switch (appState)
@@ -224,21 +205,21 @@ static void APP_TaskHandler(void)
 
 	 case APP_STATE_SEND_CHAR:
 	 {
-		adc_value = adc_read(0); // na?Ìtaj ADC hodnotu z kan·la 0 (PF0)
+		adc_value = adc_read(0); // na?√≠taj ADC hodnotu z kan√°la 0 (PF0)
 
 		 // preved hodnotu na string
-		snprintf(buffer, sizeof(buffer), "%u", adc_value); // naprÌklad "1234"
-		   // Skontroluj, ?i je miesto obsadenÈ alebo nie
+		snprintf(buffer, sizeof(buffer), "%u", adc_value); // napr√≠klad "1234"
+		   // Skontroluj, ?i je miesto obsaden√© alebo nie
 	
-		 // skopÌruj string do appUartBuffer
+		 // skop√≠ruj string do appUartBuffer
 		 appUartBufferPtr = strlen(buffer);
 		 memcpy(appUartBuffer, buffer, appUartBufferPtr);
 
-		 appSendData(); // odoöli d·ta cez sie?
+		 appSendData(); // odo≈°li d√°ta cez sie?
 
-		 printf("Odoslana ADC Value: %u\n\r", adc_value); // vypÌö do UART
+		 printf("Odoslana ADC Value: %u\n\r", adc_value); // vyp√≠≈° do UART
 			
-		// Skontroluj, ?i je miesto obsadenÈ alebo nie
+		// Skontroluj, ?i je miesto obsaden√© alebo nie
 		if (adc_value > 100) {
 			printf("Miesto je obsadene!\n\r");
 		} else {
@@ -263,7 +244,7 @@ int main(void)
 {
 SYS_Init();
 
-// Inicializ·cia UART
+// Inicializ√°cia UART
 board_init();
 adc_init();   // Inicializuj ADC
 
@@ -279,7 +260,7 @@ UART_SendString("[2J");//clear and home
 UART_SendChar(27);//escape
 UART_SendString("[0;32;40m");//barva pozadi a textu
 
-// Vytlac uvÌtaciu spr·vu
+// Vytlac uv√≠taciu spr√°vu
 printf("-------------------------------------\n\r");
 printf("Vitaj v programe pre snimanie obsadenia pomocou FSR senzora!\n\r");
 while (1)
