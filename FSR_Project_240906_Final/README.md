@@ -41,7 +41,9 @@ Pre základ LWM siete bol použitý základ od Pána Ph.D. Krajsu.
 - **Senzor**: FSR (Force Sensitive Resistor)
 - **Pripojenie k PC**: UART/USB
 - **Napájanie**: 3.3V alebo 5V podľa MCU
-
+- **FSR**: vlastnosti:
+- stlačenie: 400 Ohm
+- Uvolnenie: 100 KOhm 
 ## Inštalácia a spustenie
 
 1. Nahrajte projekt do AVR mikrokontroléra (napr. cez Atmel Studio).
@@ -71,6 +73,8 @@ Pre základ LWM siete bol použitý základ od Pána Ph.D. Krajsu.
 ## Graf rozdielu hodnôt:
 ![image](https://github.com/user-attachments/assets/dd068fa2-c434-4c3f-98f4-3f16761f0212)
 .
-
+## Možnosť doimplementovať:
+- IDLE stav
+- Filtrovanie na základe rozdielov hodnôt senzora určovať človeka vs krabica
 ---
 
